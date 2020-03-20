@@ -17,11 +17,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT p FROM Post p WHERE p.username=:username order by p.postedDate DESC")
     List<Post> findPostByUsername(@Param("username") String username);
 
-    @Query("SELECT p FROM Post p WHERE p.id=:x")
-    Post findPostById(@Param("x") Long id);
+    @Query("SELECT p FROM Post p WHERE p.id=:id")
+    Post findPostById(@Param("id") Long id);
 
     @Modifying
-    @Query("DELETE Post WHERE id=:x")
-    void deletePostById(@Param("x") Long id);
+    @Query("DELETE Post WHERE id=:id")
+    void deletePostById(@Param("id") Long id);
 
 }
