@@ -14,7 +14,7 @@ public interface AccountService {
     Role findUserRoleByName(String role);
     Role saveRole(Role role);
     void updateUser(AppUser appUser);
-    AppUser findById(Long id);
+    AppUser findUserById(Long id);
     void deleteUser(AppUser appUser);
     void resetPassword(AppUser appUser);
     List<AppUser> getUserListByUsername(String username);
