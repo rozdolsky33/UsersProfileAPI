@@ -8,6 +8,8 @@ import java.io.Serializable;
 @Entity
 public class UserRole implements Serializable {
 
+    private static final long serialVersionUID = 9178753023930019049L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userRoleId;

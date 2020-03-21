@@ -13,8 +13,8 @@ import java.util.Set;
 @Entity
 public class AppUser implements Serializable  {
 
-
     private static final long serialVersionUID = 6950794018381369676L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)

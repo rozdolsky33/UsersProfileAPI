@@ -9,8 +9,8 @@ import java.util.Date;
 @Entity
 public class Comment implements Serializable {
 
-
     private static final long serialVersionUID = -6733066805611000884L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)

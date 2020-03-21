@@ -10,8 +10,8 @@ import java.util.Set;
 @Entity
 public class Role implements Serializable {
 
-
     private static final long serialVersionUID = -9016904729748611750L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)

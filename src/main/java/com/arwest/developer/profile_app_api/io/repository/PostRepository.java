@@ -20,7 +20,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT p FROM Post p WHERE p.id=:id")
     Post findPostById(@Param("id") Long id);
 
-    @Modifying
+    @Modifying // any query that not a select
     @Query("DELETE Post WHERE id=:id")
     void deletePostById(@Param("id") Long id);
 
