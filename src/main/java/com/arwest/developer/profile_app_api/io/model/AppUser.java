@@ -35,7 +35,7 @@ public class AppUser implements Serializable  {
     private Date createdDate;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "appUser_id")
     private List<Post> post;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -121,10 +121,9 @@ public class AppUser implements Serializable  {
         return post;
     }
 
-    public void setPost(List<Post> post) {
-        this.post = post;
+    public void setPost(Post post) {
+        this.post.add(post);
     }
-
     public List<Post> getLikedPost() {
         return likedPost;
     }
