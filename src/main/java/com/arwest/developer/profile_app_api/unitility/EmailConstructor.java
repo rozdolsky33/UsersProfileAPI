@@ -9,9 +9,11 @@ import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
+import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+@Component
 public class EmailConstructor {
 
 
