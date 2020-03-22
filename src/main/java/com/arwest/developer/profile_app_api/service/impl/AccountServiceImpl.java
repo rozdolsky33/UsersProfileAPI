@@ -29,24 +29,24 @@ import java.util.Set;
 @Transactional
 public class AccountServiceImpl implements AccountService {
 
+    @Autowired
+    AccountService accountService;
+
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private AppUserRepository appUserRepository;
     private EmailConstructor emailConstructor;
     private JavaMailSender mailSender;
     private RoleRepository roleRepository;
-    private AccountService accountService;
 
     @Autowired
     public AccountServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, AppUserRepository appUserRepository,
                               EmailConstructor emailConstructor, JavaMailSender mailSender,
-                              AccountService accountService,
                               RoleRepository roleRepository) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.appUserRepository = appUserRepository;
         this.emailConstructor = emailConstructor;
         this.mailSender = mailSender;
         this.roleRepository = roleRepository;
-        this.accountService = accountService;
     }
 
     @Override
