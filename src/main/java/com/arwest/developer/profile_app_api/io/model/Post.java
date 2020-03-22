@@ -1,5 +1,6 @@
 package com.arwest.developer.profile_app_api.io.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -103,7 +104,7 @@ public class Post implements Serializable {
     }
 
     public void setLikes(int likes) {
-        this.likes = likes;
+        this.likes += likes;
     }
 
     public Date getPostedDate() {
@@ -113,12 +114,14 @@ public class Post implements Serializable {
     public void setPostedDate(Date postedDate) {
         this.postedDate = postedDate;
     }
-
     public List<Comment> getCommentList() {
         return commentList;
     }
-
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
+    @JsonIgnore
+    public void setComments(Comment comment) {
+        if (comment != null) {
+            this.commentList.add(comment);
+        }
     }
+
 }

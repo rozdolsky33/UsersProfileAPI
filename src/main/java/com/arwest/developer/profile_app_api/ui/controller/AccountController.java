@@ -47,7 +47,7 @@ public class AccountController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/findByUsername/{username}")
+    @GetMapping("/usernames/{username}")
     public ResponseEntity<?>getUsersListByUsername(@PathVariable("username") String username){
         List<AppUser>users = accountService.getUserListByUsername(username);
 
@@ -139,12 +139,13 @@ public class AccountController {
         return new ResponseEntity<String>("EmailSent!", HttpStatus.OK);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping
     public ResponseEntity<String> deleteUser(@RequestBody HashMap<String, String> mapper) {
         String username = mapper.get("username");
         AppUser user = accountService.findByUsername(username);
         accountService.deleteUser(user);
         return new ResponseEntity<String>("User Deleted Successfully!", HttpStatus.OK);
     }
+
 
 }

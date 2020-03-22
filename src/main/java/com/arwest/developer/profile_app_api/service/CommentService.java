@@ -1,8 +1,8 @@
 package com.arwest.developer.profile_app_api.service;
 
-import com.arwest.developer.profile_app_api.io.model.Comment;
+import com.arwest.developer.profile_app_api.io.model.Post;
 
 public interface CommentService {
 
-    void saveComment(Comment comment);
+    void saveComment(Post post, String username, String content);
 }
