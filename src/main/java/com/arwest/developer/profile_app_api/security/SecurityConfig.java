@@ -33,14 +33,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
 
+        JwtAuthentication jwtAuthentication = new JwtAuthentication(authenticationManager());
+        jwtAuthentication.setFilterProcessesUrl(PUBLIC_MATCHERS[0]); // set url to /users/login
+
         http
                 .csrf().disable().cors().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .headers().frameOptions().sameOrigin() // enable H2 Database
+                .and()
                 .authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll()
+                .and()
+                .authorizeRequests().antMatchers(SecurityConstants.H2_CONSOLE).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JwtAuthentication(authenticationManager()))
+                .addFilter(jwtAuthentication)
                 .addFilterBefore(new JwtAuthorization(), UsernamePasswordAuthenticationFilter.class);
 
     }

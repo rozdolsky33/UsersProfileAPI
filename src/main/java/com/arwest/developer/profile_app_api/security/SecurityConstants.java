@@ -7,5 +7,6 @@ public class SecurityConstants {
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_TYPE = "Authorization";
     public static final String CLIENT_DOMAIN_URL = "*";
+    public static final String H2_CONSOLE = "/h2-console/**";
 }
 
