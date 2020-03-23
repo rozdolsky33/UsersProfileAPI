@@ -2,7 +2,7 @@ package com.arwest.developer.profile_app_api.unitility;
 
 import java.io.File;
 
-public class Constant {
+public class Constants {
 
     public static final String USER_FOLDER = "src/main/resources/static/image/user//";
     public static final String POST_FOLDER = "src/main/resources/static/image/post//";

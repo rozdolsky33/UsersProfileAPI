@@ -4,7 +4,7 @@ import com.arwest.developer.profile_app_api.io.model.AppUser;
 import com.arwest.developer.profile_app_api.io.model.Post;
 import com.arwest.developer.profile_app_api.io.repository.PostRepository;
 import com.arwest.developer.profile_app_api.service.PostService;
-import com.arwest.developer.profile_app_api.unitility.Constant;
+import com.arwest.developer.profile_app_api.unitility.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -63,7 +63,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post deletePost(Post post) {
         try{
-            Files.deleteIfExists(Paths.get(Constant.POST_FOLDER + "/" + post.getName()+ ".png"));
+            Files.deleteIfExists(Paths.get(Constants.POST_FOLDER + "/" + post.getName()+ ".png"));
             postRepository.deletePostById(post.getId());
             return post;
         }catch (Exception ex){
@@ -83,7 +83,7 @@ public class PostServiceImpl implements PostService {
 
         try {
             byte[] bytes = multipartFile.getBytes();
-            Path path = Paths.get(Constant.POST_FOLDER + fileName + ".png");
+            Path path = Paths.get(Constants.POST_FOLDER + fileName + ".png");
             Files.write(path, bytes, StandardOpenOption.CREATE);
         } catch (IOException e) {
             System.out.println("Error occured. Photo not saved!");

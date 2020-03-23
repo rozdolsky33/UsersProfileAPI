@@ -6,7 +6,7 @@ import com.arwest.developer.profile_app_api.io.model.UserRole;
 import com.arwest.developer.profile_app_api.io.repository.AppUserRepository;
 import com.arwest.developer.profile_app_api.io.repository.RoleRepository;
 import com.arwest.developer.profile_app_api.service.AccountService;
-import com.arwest.developer.profile_app_api.unitility.Constant;
+import com.arwest.developer.profile_app_api.unitility.Constants;
 import com.arwest.developer.profile_app_api.unitility.EmailConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,9 +65,9 @@ public class AccountServiceImpl implements AccountService {
         appUserRepository.save(appUser);
         byte[] bytes;
         try {
-            bytes = Files.readAllBytes(Constant.TEMP_USER.toPath());
+            bytes = Files.readAllBytes(Constants.TEMP_USER.toPath());
             String fileName = appUser.getId() + ".png";
-            Path path = Paths.get(Constant.USER_FOLDER + fileName);
+            Path path = Paths.get(Constants.USER_FOLDER + fileName);
             Files.write(path, bytes);
         } catch (IOException e) {
             e.printStackTrace();
@@ -148,9 +148,9 @@ public class AccountServiceImpl implements AccountService {
          */
         byte[] bytes;
         try {
-            Files.deleteIfExists(Paths.get(Constant.USER_FOLDER + "/" + userImageId + ".png"));
+            Files.deleteIfExists(Paths.get(Constants.USER_FOLDER + "/" + userImageId + ".png"));
             bytes = multipartFile.getBytes();
-            Path path = Paths.get(Constant.USER_FOLDER + userImageId + ".png");
+            Path path = Paths.get(Constants.USER_FOLDER + userImageId + ".png");
             Files.write(path, bytes);
             return "User picture saved to server";
         } catch (IOException e) {

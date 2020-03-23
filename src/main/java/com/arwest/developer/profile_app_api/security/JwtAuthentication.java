@@ -1,7 +1,6 @@
 package com.arwest.developer.profile_app_api.security;
 
 import com.arwest.developer.profile_app_api.io.model.AppUser;
-import com.arwest.developer.profile_app_api.unitility.Constant;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
