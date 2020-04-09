@@ -39,18 +39,6 @@ public class Post implements Serializable {
 
     public Post() {
     }
-
-    public Post(String name, String caption, String username, String location, Long userImageId, int likes, Date postedDate, List<Comment> commentList) {
-        this.name = name;
-        this.caption = caption;
-        this.username = username;
-        this.location = location;
-        this.userImageId = userImageId;
-        this.likes = likes;
-        this.postedDate = postedDate;
-        this.commentList = commentList;
-    }
-
     public Long getId() {
         return id;
     }

@@ -128,9 +128,11 @@ public class AppUser implements Serializable  {
         return likedPost;
     }
 
+    //not used
     public void setLikedPost(List<Post> likedPost) {
         this.likedPost = likedPost;
     }
+
     public void setLikedPost(Post likedPost) {
         this.likedPost.add(likedPost);
     }
