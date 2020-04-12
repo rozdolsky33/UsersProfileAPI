@@ -51,7 +51,7 @@ public class PostController {
             return new ResponseEntity<>("Error Occured", HttpStatus.BAD_REQUEST);
         }
     }
-    @PostMapping("/save")
+    @PostMapping
     public ResponseEntity<?> savePost(@RequestBody HashMap<String, String> request) {
         String username = request.get("username");
         AppUser user = getAppUser(username);

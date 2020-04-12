@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class AccountController {
 
     private Long userImageId;
