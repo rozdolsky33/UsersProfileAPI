@@ -3,8 +3,8 @@ package com.arwest.developer.profile_app_api.security;
 import com.arwest.developer.profile_app_api.io.model.AppUser;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,40 +25,43 @@ public class JwtAuthentication extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
 
-    @Autowired
     public JwtAuthentication(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        AppUser appUser = null;
-
-        try{
-            appUser = new ObjectMapper().readValue(request.getInputStream(), AppUser.class);
-        }catch (Exception ex){
-            ex.printStackTrace();
-            throw new RuntimeException("Unable to convert user from Json toJava Object");
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
+        AppUser appUser;
+        try {
+            appUser = objectMapper.readValue(request.getInputStream(), AppUser.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Unable to convert Json into Java Object: " + e);
         }
-        return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(appUser.getUsername(), appUser.getPassword()));
+        return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                appUser.getUsername(),
+                appUser.getPassword()));
     }
+
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-                                            FilterChain chain, Authentication authResult) throws IOException, ServletException {
-
-        // Get hold of roles that user has
-        User user = (User) authResult.getPrincipal();
-        List<String>roles = new ArrayList<>();
-        user.getAuthorities().forEach(authority -> {
-            roles.add(authority.getAuthority());
-        });
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+                                            Authentication authentication) throws IOException, ServletException {
+        User user = (User) authentication.getPrincipal();
+        List<String> roles = new ArrayList<>();
+        user.getAuthorities()
+                .forEach(authority -> {
+                    roles.add(authority.getAuthority());
+                });
         String jwtToken = JWT.create()
-                .withIssuer(request.getRequestURI())
                 .withSubject(user.getUsername())
-                .withArrayClaim("roles", roles.toArray(new String[roles.size()]))
-                .withExpiresAt(new Date(System.currentTimeMillis() +SecurityConstants.EXPIRATION_TIME))
+                .withArrayClaim("roles", roles.stream().toArray(String[]::new))
+                .withExpiresAt(new Date (System.currentTimeMillis()+SecurityConstants.EXPIRATION_TIME))
                 .sign(Algorithm.HMAC256(SecurityConstants.SECRET));
-        response.addHeader(SecurityConstants.HEADER_TYPE, SecurityConstants.TOKEN_PREFIX + jwtToken);
+        response.addHeader(SecurityConstants.HEADER_TYPE, SecurityConstants.TOKEN_PREFIX+jwtToken);
     }
+
 }

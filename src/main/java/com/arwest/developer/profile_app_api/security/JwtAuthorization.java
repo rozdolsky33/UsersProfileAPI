@@ -20,15 +20,17 @@ import java.util.List;
 
 public class JwtAuthorization extends OncePerRequestFilter {
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
 
         response.addHeader("Access-Control-Allow-Origin", SecurityConstants.CLIENT_DOMAIN_URL);
+
         response.addHeader("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-With, "
                 + "Content-Type, Access-Control-Request-Method, " + "Access-Control-Request-Headers, Authorization");
+
         response.addHeader("Access-Control-Expose-Headers",
                 "Access-Control-Allow-Origin, " + "Access-Control-Allow-Creentials, " + "Authorization");
+
         response.addHeader("Access-Control-Allow-Methods", "GET," + "POST, " + "DELETE");
 
         if ((request.getMethod().equalsIgnoreCase("OPTIONS"))) {
